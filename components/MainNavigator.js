@@ -1,7 +1,8 @@
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator, createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
-import { lightBlue, lightGray } from '../utils/colors';
+import { black, blue } from '../utils/colors';
 import AddDeck from './AddDeck';
 import Decks from './Decks';
 
@@ -10,7 +11,7 @@ const routes = {
     screen: Decks,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => <Ionicons name="material-book" size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <Ionicons name="md-book" size={30} color={tintColor} />
     }
   },
   AddDeck: {
@@ -27,13 +28,13 @@ const tabOptions = {
     header: null
   },
   tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? lightGray : lightBlue,
+    activeTintColor: blue,
     indicatorStyle: {
-      backgroundColor: lightBlue
+      backgroundColor: blue
     },
     style: {
       height: 56,
-      backgroundColor: Platform.OS === 'ios' ? lightBlue : lightGray,
+      backgroundColor: black,
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,
