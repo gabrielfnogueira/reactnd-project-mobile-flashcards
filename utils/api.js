@@ -1,21 +1,13 @@
 import { AsyncStorage } from 'react-native';
-import uuidv4 from './uuidv4';
 
 const DECKS_STORAGE_KEY = 'MobileFlashcards:decks';
 
 export function fetchDecks() {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY);
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => JSON.parse(result));
 }
 
-export function addDeck(title) {
-  return AsyncStorage.mergeItem(
-    DECKS_STORAGE_KEY,
-    JSON.stringify({
-      [uuidv4()]: {
-        title: title
-      }
-    })
-  );
+export function addDeck(newDeck) {
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(newDeck));
 }
 
 export function addCardToDeck(id, card) {
