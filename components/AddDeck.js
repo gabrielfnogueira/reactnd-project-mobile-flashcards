@@ -16,6 +16,10 @@ class AddDeck extends Component {
   handleInputChange = text => this.setState({ title: text });
 
   handleSubmit = () => {
+    if (!this.state.title) {
+      return;
+    }
+
     const newDeck = { [uuidv4()]: { title: this.state.title } };
 
     this.props.dispatch(addDeck(newDeck));
@@ -37,7 +41,11 @@ class AddDeck extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>What is the title of your new deck?</Text>
-        <TextInput style={styles.input} onChangeText={this.handleInputChange} value={title} />
+        <TextInput
+          style={styles.input}
+          onChangeText={this.handleInputChange}
+          value={title}
+        />
         <SubmitBtn onPress={this.handleSubmit} />
       </View>
     );

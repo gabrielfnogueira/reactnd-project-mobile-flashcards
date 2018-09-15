@@ -5,14 +5,14 @@ import { createStore } from 'redux';
 import CustomStatusBar from './components/CustomStatusBar';
 import MainNavigator from './components/MainNavigator';
 import reducer from './reducers';
-import { lightGray } from './utils/colors';
+import { darkGray } from './utils/colors';
 
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducer)}>
         <View style={{ flex: 1 }}>
-          <CustomStatusBar backgroundColor={lightGray} barStyle="light-content" />
+          <CustomStatusBar backgroundColor={darkGray} barStyle="light-content" />
           <MainNavigator />
         </View>
       </Provider>

@@ -1,12 +1,15 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { lightBlue, white } from '../utils/colors';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import { blue, paleBlue, white } from '../utils/colors';
+import CustomTouchable from './CustomTouchable';
 
 const SubmitBtn = ({ onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}>
-      <Text style={styles.submitBtnText}>SUBMIT</Text>
-    </TouchableOpacity>
+    <CustomTouchable onPress={onPress} rippleColor={paleBlue} useForeground={true}>
+      <View style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}>
+        <Text style={styles.submitBtnText}>SUBMIT</Text>
+      </View>
+    </CustomTouchable>
   );
 };
 
@@ -17,7 +20,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   iosSubmitBtn: {
-    backgroundColor: lightBlue,
+    backgroundColor: blue,
     padding: 10,
     borderRadius: 7,
     height: 45,
@@ -25,7 +28,7 @@ const styles = StyleSheet.create({
     marginRight: 40
   },
   androidSubmitBtn: {
-    backgroundColor: lightBlue,
+    backgroundColor: blue,
     height: 45,
     borderRadius: 2,
     flexDirection: 'row',
