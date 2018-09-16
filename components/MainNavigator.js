@@ -1,9 +1,14 @@
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Platform } from 'react-native';
-import { createBottomTabNavigator, createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator,
+  createStackNavigator
+} from 'react-navigation';
 import { black, blue } from '../utils/colors';
 import AddDeck from './AddDeck';
+import DeckDetails from './DeckDetails';
 import Decks from './Decks';
 
 const routes = {
@@ -11,14 +16,18 @@ const routes = {
     screen: Decks,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => <Ionicons name="md-book" size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => (
+        <Ionicons name="md-book" size={30} color={tintColor} />
+      )
     }
   },
   AddDeck: {
     screen: AddDeck,
     navigationOptions: {
       tabBarLabel: 'Add Deck',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name="plus-square" size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => (
+        <FontAwesome name="plus-square" size={30} color={tintColor} />
+      )
     }
   }
 };
@@ -57,6 +66,15 @@ export default (MainNavigator = createStackNavigator(
       screen: Tabs,
       navigationOptions: {
         header: null
+      }
+    },
+    DeckDetails: {
+      screen: DeckDetails,
+      navigationOptions: {
+        headerTintColor: blue,
+        headerStyle: {
+          backgroundColor: black
+        }
       }
     }
   },

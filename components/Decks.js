@@ -23,10 +23,19 @@ class Decks extends Component {
   }
 
   renderDeck = ({ item }) => {
-    const cardNumber = Array.isArray(item.questions) ? item.questions.length : 0;
+    const cardNumber = Array.isArray(item.questions)
+      ? item.questions.length
+      : 0;
 
     return (
-      <CustomTouchable onPress={() => this.props.navigation.navigate('DeckDetails', { deckId: item.id })}>
+      <CustomTouchable
+        onPress={() =>
+          this.props.navigation.navigate('DeckDetails', {
+            deckId: item.id,
+            title: item.title
+          })
+        }
+      >
         <View style={styles.deck}>
           <Text style={styles.deckTitle}>{item.title}</Text>
           <Text style={styles.deckCards}>{cardNumber} cards</Text>
@@ -45,7 +54,11 @@ class Decks extends Component {
 
     return (
       <View style={styles.container}>
-        <FlatList data={decksList} renderItem={this.renderDeck} keyExtractor={item => item.id} />
+        <FlatList
+          data={decksList}
+          renderItem={this.renderDeck}
+          keyExtractor={item => item.id}
+        />
       </View>
     );
   }

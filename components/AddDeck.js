@@ -1,6 +1,12 @@
 import { Formik } from 'formik';
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
@@ -46,7 +52,7 @@ class AddDeck extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Formik
           validate={this.validateForm}
           onSubmit={this.handleSubmit}
@@ -70,7 +76,7 @@ class AddDeck extends Component {
             </View>
           )}
         </Formik>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
