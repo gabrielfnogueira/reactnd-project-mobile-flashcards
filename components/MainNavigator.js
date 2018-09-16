@@ -83,6 +83,11 @@ export default (MainNavigator = createStackNavigator(
       headerForceInset: {
         top: 'never'
       }
-    }
+    },
+    transitionConfig: () => ({
+      containerStyle: {
+        backgroundColor: black
+      }
+    })
   }
 ));

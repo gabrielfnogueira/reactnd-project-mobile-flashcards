@@ -1,4 +1,4 @@
-import { ADD_DECK, ADD_QUESTION, RECEIVE_DECKS } from '../actions';
+import { ADD_DECK, ADD_QUESTION, RECEIVE_DECKS, DELETE_DECK } from '../actions';
 
 function decks(state = {}, action) {
   switch (action.type) {
@@ -12,6 +12,12 @@ function decks(state = {}, action) {
         ...state,
         ...action.deck
       };
+    case DELETE_DECK:
+      const aux = { ...state };
+      aux[action.deckId] = undefined;
+      delete aux[action.deckId];
+
+      return aux;
     case ADD_QUESTION:
       return {
         ...state,
