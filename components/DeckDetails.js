@@ -36,6 +36,12 @@ class DeckDetails extends Component {
     removeDeck(deckId);
   };
 
+  handleAddQuestionPress = () => {
+    this.props.navigation.navigate('AddQuestion', {
+      deckId: this.props.deckId
+    });
+  };
+
   toHome = () => {
     this.props.navigation.dispatch(NavigationActions.back());
   };
@@ -69,7 +75,7 @@ class DeckDetails extends Component {
               <Text style={styles.btnText}>Delete deck</Text>
             </View>
           </CustomTouchable>
-          <CustomTouchable>
+          <CustomTouchable onPress={this.handleAddQuestionPress}>
             <View
               style={[
                 Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn,

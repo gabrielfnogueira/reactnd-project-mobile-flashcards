@@ -23,7 +23,10 @@ function decks(state = {}, action) {
         ...state,
         [action.deckId]: {
           ...state[action.deckId],
-          questions: [...state[action.deckId].questions, ...action.question]
+          questions: [
+            ...(state[action.deckId].questions || []),
+            action.question
+          ]
         }
       };
     default:

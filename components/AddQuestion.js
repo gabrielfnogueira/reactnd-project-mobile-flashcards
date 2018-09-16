@@ -9,22 +9,33 @@ import {
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { addDeck } from '../actions';
-import { addDeck as saveDeck } from '../utils/api';
+import { addQuestion } from '../actions';
+import { addCardToDeck } from '../utils/api';
 import { black, lightGray, white } from '../utils/colors';
 import uuidv4 from '../utils/uuidv4';
 import SubmitBtn from './SubmitBtn';
 
-class AddDeck extends Component {
-  newDeck = {
-    title: ''
+class AddQuestion extends Component {
+  newQuestion = {
+    question: '',
+    answer: ''
+  };
+
+  static navigationOptions = () => {
+    return {
+      title: 'Add card'
+    };
   };
 
   validateForm = values => {
     const errors = {};
 
-    if (!values.title) {
-      errors.title = "Please inform the deck's title.";
+    if (!values.question || !values.question.trim()) {
+      errors.question = 'Please inform the question.';
+    }
+
+    if (!values.answer || !values.answer.trim()) {
+      errors.answer = 'Please inform the answer.';
     }
 
     return errors;
@@ -32,20 +43,21 @@ class AddDeck extends Component {
 
   handleSubmit = (values, { setSubmitting, resetForm }) => {
     setSubmitting(false);
+    const { deckId } = this.props;
 
-    const newDeck = { [uuidv4()]: values };
+    const question = { ...values };
 
-    this.props.dispatch(addDeck(newDeck));
+    this.props.dispatch(addQuestion(deckId, question));
 
     resetForm();
 
-    this.toHome();
+    this.goBack();
 
-    saveDeck(newDeck);
+    addCardToDeck(deckId, question);
   };
 
-  toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.back({ key: 'AddDeck' }));
+  goBack = () => {
+    this.props.navigation.dispatch(NavigationActions.back());
   };
 
   render() {
@@ -54,17 +66,21 @@ class AddDeck extends Component {
         <Formik
           validate={this.validateForm}
           onSubmit={this.handleSubmit}
-          initialValues={this.newDeck}
+          initialValues={this.newQuestion}
         >
           {({ handleChange, handleSubmit, values, isSubmitting, isValid }) => (
             <View>
-              <Text style={styles.title}>
-                What is the title of your new deck?
-              </Text>
+              <Text style={styles.title}>Question:</Text>
               <TextInput
                 style={styles.input}
-                onChangeText={handleChange('title')}
-                value={values.title}
+                onChangeText={handleChange('question')}
+                value={values.question}
+              />
+              <Text style={styles.title}>Answer</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange('answer')}
+                value={values.answer}
               />
               <SubmitBtn
                 onPress={handleSubmit}
@@ -100,6 +116,14 @@ const styles = StyleSheet.create({
   }
 });
 
-AddDeck = connect()(AddDeck);
+function mapStateToProps(state, { navigation }) {
+  const { deckId } = navigation.state.params;
 
-export default AddDeck;
+  return {
+    deckId
+  };
+}
+
+AddQuestion = connect(mapStateToProps)(AddQuestion);
+
+export default AddQuestion;

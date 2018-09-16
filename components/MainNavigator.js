@@ -8,6 +8,7 @@ import {
 } from 'react-navigation';
 import { black, blue } from '../utils/colors';
 import AddDeck from './AddDeck';
+import AddQuestion from './AddQuestion';
 import DeckDetails from './DeckDetails';
 import Decks from './Decks';
 
@@ -64,18 +65,27 @@ export default (MainNavigator = createStackNavigator(
   {
     Home: {
       screen: Tabs,
-      navigationOptions: {
+      navigationOptions: () => ({
         header: null
-      }
+      })
     },
     DeckDetails: {
       screen: DeckDetails,
-      navigationOptions: {
+      navigationOptions: () => ({
         headerTintColor: blue,
         headerStyle: {
           backgroundColor: black
         }
-      }
+      })
+    },
+    AddQuestion: {
+      screen: AddQuestion,
+      navigationOptions: () => ({
+        headerTintColor: blue,
+        headerStyle: {
+          backgroundColor: black
+        }
+      })
     }
   },
   {
