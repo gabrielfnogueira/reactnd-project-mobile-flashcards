@@ -3,10 +3,20 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { blue, paleBlue, white } from '../utils/colors';
 import CustomTouchable from './CustomTouchable';
 
-const SubmitBtn = ({ onPress }) => {
+const SubmitBtn = ({ onPress, ...props }) => {
   return (
-    <CustomTouchable onPress={onPress} rippleColor={paleBlue} useForeground={true}>
-      <View style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}>
+    <CustomTouchable
+      onPress={onPress}
+      rippleColor={paleBlue}
+      useForeground={true}
+      {...props}
+    >
+      <View
+        style={[
+          Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn,
+          { opacity: props.disabled ? 0.5 : 1 }
+        ]}
+      >
         <Text style={styles.submitBtnText}>SUBMIT</Text>
       </View>
     </CustomTouchable>

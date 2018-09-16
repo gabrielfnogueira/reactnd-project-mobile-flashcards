@@ -1,30 +1,39 @@
+import { Formik } from 'formik';
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
 import { addDeck as saveDeck } from '../utils/api';
-import { black, darkGray, lightGray, white } from '../utils/colors';
+import { black, lightGray, white } from '../utils/colors';
 import uuidv4 from '../utils/uuidv4';
 import SubmitBtn from './SubmitBtn';
 
 class AddDeck extends Component {
-  state = {
+  newDeck = {
     title: ''
   };
 
   handleInputChange = text => this.setState({ title: text });
 
-  handleSubmit = () => {
-    if (!this.state.title) {
-      return;
+  validateForm = values => {
+    const errors = {};
+
+    if (!values.title) {
+      errors.title = "Please inform the deck's title.";
     }
 
-    const newDeck = { [uuidv4()]: { title: this.state.title } };
+    return errors;
+  };
+
+  handleSubmit = (values, { setSubmitting, resetForm }) => {
+    setSubmitting(false);
+
+    const newDeck = { [uuidv4()]: values };
 
     this.props.dispatch(addDeck(newDeck));
 
-    this.setState({ title: '' });
+    resetForm();
 
     this.toHome();
 
@@ -36,17 +45,31 @@ class AddDeck extends Component {
   };
 
   render() {
-    const { title } = this.state;
-
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>What is the title of your new deck?</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={this.handleInputChange}
-          value={title}
-        />
-        <SubmitBtn onPress={this.handleSubmit} />
+        <Formik
+          validate={this.validateForm}
+          onSubmit={this.handleSubmit}
+          initialValues={this.newDeck}
+        >
+          {({ handleChange, handleSubmit, values, isSubmitting, isValid }) => (
+            <View>
+              <Text style={styles.title}>
+                What is the title of your new deck?
+              </Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange('title')}
+                value={values.title}
+              />
+              <SubmitBtn
+                onPress={handleSubmit}
+                disabled={!isValid || isSubmitting}
+                log={true}
+              />
+            </View>
+          )}
+        </Formik>
       </View>
     );
   }
@@ -57,14 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: black
-  },
-  box: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: darkGray,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   title: {
     color: white,
