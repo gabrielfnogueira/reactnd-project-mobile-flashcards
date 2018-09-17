@@ -108,7 +108,8 @@ const styles = StyleSheet.create({
   },
   questionNumber: {
     color: white,
-    fontSize: 20
+    fontSize: 20,
+    textAlign: 'center'
   },
   actions: {
     padding: 20

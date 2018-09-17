@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { black, blue, paleBlue, white } from '../utils/colors';
+import { Animated, Platform, StyleSheet, Text, View } from 'react-native';
+import {
+  black,
+  blue,
+  green,
+  paleBlue,
+  red,
+  white,
+  yellow
+} from '../utils/colors';
 import CustomTouchable from './CustomTouchable';
 
 class QuizResult extends Component {
-  state = {};
+  state = {
+    opacity: new Animated.Value(0),
+    fontSize: new Animated.Value(0)
+  };
+
+  componentDidMount() {
+    const { opacity, fontSize } = this.state;
+
+    Animated.timing(opacity, { toValue: 1, duration: 750 }).start();
+    Animated.spring(fontSize, { toValue: 100, bounciness: 15 }).start();
+  }
+
   render() {
+    const { opacity, fontSize } = this.state;
     const {
       totalQuestions,
       correctCount,
@@ -13,11 +33,32 @@ class QuizResult extends Component {
       onResetPress
     } = this.props;
 
+    const percentage = (correctCount / totalQuestions) * 100;
+    let percentageColor = white;
+
+    if (percentage < 50) {
+      percentageColor = red;
+    } else if (percentage < 75) {
+      percentageColor = yellow;
+    } else {
+      percentageColor = green;
+    }
+
     return (
       <View style={styles.container}>
-        <Text style={styles.questionNumber}>
-          You've got {correctCount} of {totalQuestions} correct!
-        </Text>
+        <Animated.View style={[styles.result, { opacity: opacity }]}>
+          <Animated.Text
+            style={[
+              styles.resultPercentage,
+              { color: percentageColor, fontSize }
+            ]}
+          >
+            {percentage.toFixed(0)}%
+          </Animated.Text>
+          <Text style={styles.resultText}>
+            You've got {correctCount} of {totalQuestions} correct!
+          </Text>
+        </Animated.View>
         <View style={styles.actions}>
           <CustomTouchable onPress={onGoBackPress}>
             <View
@@ -51,8 +92,21 @@ const styles = StyleSheet.create({
     backgroundColor: black,
     justifyContent: 'space-between'
   },
-  questionNumber: {
+  result: {
+    flexGrow: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 30,
+    marginRight: 30
+  },
+  resultPercentage: {
     color: white,
+    fontWeight: 'bold',
+    fontSize: 100
+  },
+  resultText: {
+    color: blue,
+    opacity: 0.7,
     fontSize: 20
   },
   actions: {

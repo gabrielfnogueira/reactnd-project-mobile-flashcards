@@ -7,4 +7,5 @@ export const lightGray = '#444';
 export const green = '#C3E88D';
 export const purple = '#C792EA';
 export const red = '#FF5370';
+export const yellow = '#FFCB6B';
 export const white = '#fff';
