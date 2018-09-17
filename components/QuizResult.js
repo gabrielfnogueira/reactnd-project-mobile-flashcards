@@ -56,7 +56,7 @@ class QuizResult extends Component {
             {percentage.toFixed(0)}%
           </Animated.Text>
           <Text style={styles.resultText}>
-            You've got {correctCount} of {totalQuestions} correct!
+            You've got {correctCount} out of {totalQuestions} correct!
           </Text>
         </Animated.View>
         <View style={styles.actions}>

@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import { addQuestion } from '../actions';
 import { addCardToDeck } from '../utils/api';
 import { black, lightGray, white } from '../utils/colors';
-import uuidv4 from '../utils/uuidv4';
 import SubmitBtn from './SubmitBtn';
 
 class AddQuestion extends Component {
