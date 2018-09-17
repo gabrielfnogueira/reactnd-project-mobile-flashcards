@@ -4,6 +4,7 @@ export const paleBlue = '#b2ccd6';
 export const darkGray = '#1a1a1a';
 export const gray = '#212121';
 export const lightGray = '#444';
+export const green = '#C3E88D';
 export const purple = '#C792EA';
 export const red = '#FF5370';
 export const white = '#fff';

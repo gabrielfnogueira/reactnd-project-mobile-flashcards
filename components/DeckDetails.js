@@ -42,6 +42,12 @@ class DeckDetails extends Component {
     });
   };
 
+  handleStartQuizPress = () => {
+    this.props.navigation.navigate('Quiz', {
+      deckId: this.props.deckId
+    });
+  };
+
   toHome = () => {
     this.props.navigation.dispatch(NavigationActions.back());
   };
@@ -85,16 +91,22 @@ class DeckDetails extends Component {
               <Text style={styles.btnText}>Add card</Text>
             </View>
           </CustomTouchable>
-          <CustomTouchable rippleColor={paleBlue}>
-            <View
-              style={[
-                Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn,
-                { backgroundColor: blue }
-              ]}
-            >
-              <Text style={styles.btnText}>Start Quiz</Text>
-            </View>
-          </CustomTouchable>
+          {deck.questions &&
+            deck.questions.length > 0 && (
+              <CustomTouchable
+                onPress={this.handleStartQuizPress}
+                rippleColor={paleBlue}
+              >
+                <View
+                  style={[
+                    Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn,
+                    { backgroundColor: blue }
+                  ]}
+                >
+                  <Text style={styles.btnText}>Start Quiz</Text>
+                </View>
+              </CustomTouchable>
+            )}
         </View>
       </View>
     );
@@ -104,10 +116,11 @@ class DeckDetails extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: black
+    backgroundColor: black,
+    justifyContent: 'space-around'
   },
   details: {
-    flex: 1,
+    flexGrow: 2,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 30,
@@ -124,7 +137,6 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   actions: {
-    flex: 1,
     padding: 20
   },
   iosBtn: {

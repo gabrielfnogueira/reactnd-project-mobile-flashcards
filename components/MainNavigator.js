@@ -11,6 +11,7 @@ import AddDeck from './AddDeck';
 import AddQuestion from './AddQuestion';
 import DeckDetails from './DeckDetails';
 import Decks from './Decks';
+import Quiz from './Quiz';
 
 const routes = {
   Decks: {
@@ -80,6 +81,15 @@ export default (MainNavigator = createStackNavigator(
     },
     AddQuestion: {
       screen: AddQuestion,
+      navigationOptions: () => ({
+        headerTintColor: blue,
+        headerStyle: {
+          backgroundColor: black
+        }
+      })
+    },
+    Quiz: {
+      screen: Quiz,
       navigationOptions: () => ({
         headerTintColor: blue,
         headerStyle: {
