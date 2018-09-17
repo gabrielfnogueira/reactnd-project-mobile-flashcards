@@ -9,6 +9,10 @@ import {
   white,
   yellow
 } from '../utils/colors';
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from '../utils/notification';
 import CustomTouchable from './CustomTouchable';
 
 class QuizResult extends Component {
@@ -22,6 +26,8 @@ class QuizResult extends Component {
 
     Animated.timing(opacity, { toValue: 1, duration: 750 }).start();
     Animated.spring(fontSize, { toValue: 100, bounciness: 15 }).start();
+
+    clearLocalNotification().then(setLocalNotification);
   }
 
   render() {
