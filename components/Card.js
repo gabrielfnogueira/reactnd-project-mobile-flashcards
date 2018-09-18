@@ -128,9 +128,9 @@ const styles = StyleSheet.create({
   },
   card: {
     flexBasis: '100%',
+    padding: 20,
     backgroundColor: blue,
     borderRadius: 5,
-    justifyContent: 'center',
     alignItems: 'center',
     backfaceVisibility: 'hidden',
     justifyContent: 'space-around'
@@ -144,16 +144,16 @@ const styles = StyleSheet.create({
   },
   textType: {
     color: white,
-    fontSize: 35
+    fontSize: 20
   },
   text: {
     color: white,
-    fontSize: 75
+    fontSize: 50
   },
   flipText: {
     color: black,
     opacity: 0.7,
-    fontSize: 20
+    fontSize: 15
   }
 });
 

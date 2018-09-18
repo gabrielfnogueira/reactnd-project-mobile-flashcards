@@ -25,7 +25,7 @@ class QuizResult extends Component {
     const { opacity, fontSize } = this.state;
 
     Animated.timing(opacity, { toValue: 1, duration: 750 }).start();
-    Animated.spring(fontSize, { toValue: 100, bounciness: 15 }).start();
+    Animated.spring(fontSize, { toValue: 80, bounciness: 15 }).start();
 
     clearLocalNotification().then(setLocalNotification);
   }
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   resultPercentage: {
     color: white,
     fontWeight: 'bold',
-    fontSize: 100
+    fontSize: 80
   },
   resultText: {
     color: blue,
