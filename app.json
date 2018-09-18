@@ -7,10 +7,10 @@
     "slug": "mobile-flashcards",
     "version": "1.0",
     "ios": {
-      "bundleIdentifier": "org.mobile-flashcards.exp"
+      "bundleIdentifier": "org.mobileflashcards.exp"
     },
     "android": {
-      "package": "org.mobile-flashcards.exp"
+      "package": "org.mobileflashcards.exp"
     }
   }
 }
