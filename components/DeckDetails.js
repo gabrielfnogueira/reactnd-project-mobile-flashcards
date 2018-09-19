@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Alert } from 'react-native';
+import { Alert, Platform, StyleSheet, Text, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { deleteDeck } from '../actions';
 import { deleteDeck as removeDeck } from '../utils/api';
-import { black, blue, paleBlue, red, white, purple } from '../utils/colors';
+import { black, blue, paleBlue, purple, red, white } from '../utils/colors';
 import CustomTouchable from './CustomTouchable';
 
 class DeckDetails extends Component {
@@ -63,6 +63,7 @@ class DeckDetails extends Component {
     const cardNumber = Array.isArray(deck.questions)
       ? deck.questions.length
       : 0;
+    const disableQuiz = !deck.questions || deck.questions.length === 0;
 
     return (
       <View style={styles.container}>
@@ -91,22 +92,20 @@ class DeckDetails extends Component {
               <Text style={styles.btnText}>Add card</Text>
             </View>
           </CustomTouchable>
-          {deck.questions &&
-            deck.questions.length > 0 && (
-              <CustomTouchable
-                onPress={this.handleStartQuizPress}
-                rippleColor={paleBlue}
-              >
-                <View
-                  style={[
-                    Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn,
-                    { backgroundColor: blue }
-                  ]}
-                >
-                  <Text style={styles.btnText}>Start Quiz</Text>
-                </View>
-              </CustomTouchable>
-            )}
+          <CustomTouchable
+            onPress={this.handleStartQuizPress}
+            rippleColor={paleBlue}
+            disabled={disableQuiz}
+          >
+            <View
+              style={[
+                Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn,
+                { backgroundColor: blue, opacity: disableQuiz ? 0.5 : 1 }
+              ]}
+            >
+              <Text style={styles.btnText}>Start Quiz</Text>
+            </View>
+          </CustomTouchable>
         </View>
       </View>
     );
