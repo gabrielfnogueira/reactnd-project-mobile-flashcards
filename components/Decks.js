@@ -54,11 +54,18 @@ class Decks extends Component {
 
     return (
       <View style={styles.container}>
-        <FlatList
-          data={decksList}
-          renderItem={this.renderDeck}
-          keyExtractor={item => item.id}
-        />
+        {decksList.length > 0 ? (
+          <FlatList
+            data={decksList}
+            renderItem={this.renderDeck}
+            keyExtractor={item => item.id}
+          />
+        ) : (
+          <View style={styles.noDeckContainer}>
+            <Text style={styles.noDeckText}>No decks yet.</Text>
+            <Text style={styles.noDeckText}>Why don't you create one?</Text>
+          </View>
+        )}
       </View>
     );
   }
@@ -68,6 +75,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: black
+  },
+  noDeckContainer: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  noDeckText: {
+    color: white,
+    fontSize: 20
   },
   deck: {
     borderBottomWidth: 1,
