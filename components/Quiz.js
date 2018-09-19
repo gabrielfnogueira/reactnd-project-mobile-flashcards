@@ -55,6 +55,14 @@ class Quiz extends Component {
     } = this.state;
     const { deck } = this.props;
     const question = deck.questions[currentQuestion - 1];
+    const {
+      container,
+      questionNumber,
+      actions,
+      iosBtn,
+      androidBtn,
+      btnText
+    } = styles;
 
     if (showResult) {
       return (
@@ -68,30 +76,30 @@ class Quiz extends Component {
     }
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.questionNumber}>
+      <View style={container}>
+        <Text style={questionNumber}>
           Question {currentQuestion} of {totalQuestions}
         </Text>
         <Card question={question} />
-        <View style={styles.actions}>
+        <View style={actions}>
           <CustomTouchable onPress={() => this.markCorrect()}>
             <View
               style={[
-                Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn,
+                Platform.OS === 'ios' ? iosBtn : androidBtn,
                 { backgroundColor: green }
               ]}
             >
-              <Text style={styles.btnText}>Correct</Text>
+              <Text style={btnText}>Correct</Text>
             </View>
           </CustomTouchable>
           <CustomTouchable onPress={this.nextCard}>
             <View
               style={[
-                Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn,
+                Platform.OS === 'ios' ? iosBtn : androidBtn,
                 { backgroundColor: red }
               ]}
             >
-              <Text style={styles.btnText}>Incorrect</Text>
+              <Text style={btnText}>Incorrect</Text>
             </View>
           </CustomTouchable>
         </View>
