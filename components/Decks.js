@@ -38,7 +38,9 @@ class Decks extends Component {
       >
         <View style={styles.deck}>
           <Text style={styles.deckTitle}>{item.title}</Text>
-          <Text style={styles.deckCards}>{cardNumber} cards</Text>
+          <Text style={styles.deckCards}>
+            {cardNumber} {cardNumber === 1 ? 'card' : 'cards'}
+          </Text>
         </View>
       </CustomTouchable>
     );
